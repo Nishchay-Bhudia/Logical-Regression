@@ -71,7 +71,7 @@ pip install numpy matplotlib
 Run the file with Python:
 
 ```bash
-python logistic_regression.py
+git clone https://github.com/Nishchay-Bhudia/Logical-Regression.git
 ```
 
 Example input:
