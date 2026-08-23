@@ -1,103 +1,45 @@
-# Logical Regression From Scratch
+# Logistic Regression From Scratch
 
-This project shows how a simple **Logical regression model** can be built from scratch using Python.  
-It uses **NumPy** for the calculations and **Matplotlib** to show the results visually.
+One Python script that learns to separate two classes from numbers you type in, with
+the sigmoid, the loss and the gradient descent loop all written out in NumPy. The repo
+name says "Logical", which is a typo I made early on. The algorithm is logistic regression.
 
-Instead of using machine learning libraries, the aim of this script is to help understand what is happening behind the scenes when a model learns from data.
+## What it does
 
----
+You enter x values and matching y labels that are each 0 or 1. The script trains for
+1000 steps, prints the learned weight and bias, then asks for a new x and tells you the
+probability that it belongs to class 1, plus the class it falls into at a 0.5 threshold.
+It finishes with two plots: your data with the fitted S-curve through it, and the loss
+over training.
 
-## What the Script Does
+## How it works
 
-The program works in a few simple steps:
+A straight line can output any number, but a probability has to sit between 0 and 1, so
+the line's output is squashed through the sigmoid function first. Error is measured with
+binary cross entropy, which punishes confident wrong answers far harder than uncertain
+ones.
 
-1. **Enter training data**  
-   You enter X values and Y values directly in the terminal.  
-   The Y values should only be **0 or 1**, since this is a binary classification problem.
+Then gradient descent: the weight and bias start at zero, and on every step the script
+works out which direction each of them should move to make the error smaller, and moves
+them a small distance that way. Repeat a thousand times and the S-curve slides and
+steepens until it sits where the 0s stop and the 1s start. The learning rate of 0.1 sets
+how big each of those steps is.
 
-2. **Model training**  
-   The script trains the model for 1000 iterations so it can learn the relationship between the X and Y values.
-
-3. **Prediction**  
-   After training, you can enter a new X value and the model will estimate the probability that it belongs to class **1**.
-
-4. **Visualisation**  
-   Two graphs are shown:
-   - The logistic curve fitted to the training data
-   - How the training loss changes over time
-
----
-
-## How the Model Works
-
-Logical regression uses a **sigmoid function** to turn a value into a probability between 0 and 1.
-
-```
-sigmoid(z) = 1 / (1 + e^(-z))
-```
-
-Where:
-
-```
-z = wx + b
-```
-
-- **w** is the weight (slope)  
-- **b** is the bias (intercept)
-
-During training, the model slowly adjusts these values so that its predictions match the real data as closely as possible.
-
-To measure how well the model is doing, it uses something called **Binary Cross Entropy Loss**, which simply measures how far the predictions are from the correct answers.
-
----
-
-## Requirements
-
-You will need the following Python libraries:
-
-- numpy  
-- matplotlib  
-
-Install them with:
+## Running it
 
 ```bash
 pip install numpy matplotlib
+python "logical regression.py"
 ```
 
----
+## Current state
 
-## How to Run the Script
+Works for what it is, with the limits you would expect from a teaching script. One
+feature only. No input validation, so mismatched x and y lengths or labels that are not
+0 or 1 will misbehave. No train/test split and no accuracy figure, since with a handful
+of hand-typed points there is nothing meaningful to hold out. The `1e-9` inside the log
+is there to stop the loss becoming infinite when the model gets fully confident.
 
-Run the file with Python:
+## Tech
 
-```bash
-git clone https://github.com/Nishchay-Bhudia/Logical-Regression.git
-```
-
-Example input:
-
-```
-X values: 1,2,3,4
-Y values: 0,0,1,1
-```
-
-After the model finishes training, you can enter a new X value to see the prediction.
-
----
-
-## Output
-
-The program will show:
-
-- The learned model parameters (w and b)
-- The probability of class 1 for a new value
-- The predicted class (0 or 1)
-- A graph of the logistic regression curve
-- A graph showing how the loss changes during training
-
----
-
-## Purpose
-
-This project was made for **learning and experimentation**.  
-It is a simple way to see how Logical regression works without relying on large machine learning libraries.
+Python, NumPy, matplotlib. MIT licensed.
